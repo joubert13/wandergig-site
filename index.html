@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#F3EEE4">
+  <meta name="description" content="WanderGig is a planned marketplace where travelers already in a city pick up short, paid, location-specific tasks for businesses. It is in early research. Take a 3-minute survey to help shape what gets built.">
+  <title>WanderGig — short, paid tasks for travelers already in the city</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E5853'/%3E%3Cpath d='M8 22c2-6 6-4 8-8s6-6 8-3' fill='none' stroke='%23F3EEE4' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='11' r='2.3' fill='%23E8A87C'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #F3EEE4;
+      --bg-soft: #E9E2D6;
+      --paper: #FFFCF7;
+      --ink: #1B2421;
+      --muted: #3F4A46;
+      --teal: #0E5853;
+      --teal-dark: #0A433F;
+      --teal-soft: #DCEAE7;
+      --sand: #E8A87C;
+      --line: #D6CDBE;
+      --serif: Fraunces, "Source Serif Pro", "Iowan Old Style", Palatino, Georgia, serif;
+      --sans: "Source Sans 3", Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+      --shadow: 0 1px 2px rgba(27, 36, 33, 0.05), 0 8px 24px rgba(27, 36, 33, 0.06);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 100% -10%, rgba(14, 88, 83, 0.07), transparent 50%),
+        radial-gradient(ellipse 60% 40% at -10% 20%, rgba(232, 168, 124, 0.12), transparent 45%),
+        var(--bg);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: var(--teal); }
+    a:hover { color: var(--teal-dark); }
+
+    :focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 3px;
+    }
+
+    .skip {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 10;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+    }
+    .skip:focus { top: 1rem; }
+
+    .wrap {
+      width: min(1080px, calc(100% - 2.5rem));
+      margin-inline: auto;
+    }
+
+    header {
+      padding: 1.15rem 0;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+    .brand:hover { color: var(--ink); }
+    .brand svg { width: 32px; height: 32px; display: block; flex-shrink: 0; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-size: 0.78rem;
+      font-weight: 650;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+    }
+    .badge::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    main { padding-bottom: 4.5rem; }
+
+    .hero {
+      padding: 2.2rem 0 3.2rem;
+      max-width: 42rem;
+    }
+    .eyebrow {
+      margin: 0 0 0.9rem;
+      color: var(--teal);
+      font-size: 0.82rem;
+      font-weight: 650;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      margin: 0 0 1.15rem;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2rem, 4.6vw, 3.15rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.6;
+      max-width: 38rem;
+    }
+
+    .route {
+      display: block;
+      width: min(1080px, calc(100% - 2.5rem));
+      margin: 0 auto 3rem;
+      height: 24px;
+      color: var(--teal);
+      opacity: 0.35;
+    }
+
+    .section-kicker {
+      margin: 0 0 0.4rem;
+      color: var(--teal);
+      font-size: 0.82rem;
+      font-weight: 650;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin: 0 0 1.25rem;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.55rem, 2.6vw, 2rem);
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+    h3 {
+      margin: 0 0 0.55rem;
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.28rem;
+      letter-spacing: -0.02em;
+    }
+
+    .how { padding-bottom: 1rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.15rem;
+    }
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.45rem 1.55rem;
+    }
+    .card p { margin: 0; color: var(--muted); }
+    .icon-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      margin-bottom: 0.9rem;
+      border-radius: 10px;
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+    .icon-label svg { width: 22px; height: 22px; }
+
+    .honest {
+      margin-top: 2.5rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--teal);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.45rem 1.6rem 1.5rem;
+    }
+    .honest h2 { margin-bottom: 0.7rem; }
+    .honest p { margin: 0; color: var(--muted); max-width: 46rem; }
+
+    .survey {
+      margin-top: 2.5rem;
+      background: var(--teal);
+      color: #F7F4EE;
+      border-radius: 20px;
+      padding: 2rem 1.7rem 1.8rem;
+      box-shadow: 0 10px 30px rgba(14, 88, 83, 0.18);
+    }
+    .survey h2 { color: #FFFCF7; margin-bottom: 0.65rem; }
+    .survey > p { margin: 0 0 1.4rem; color: rgba(247, 244, 238, 0.92); max-width: 38rem; }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      background: #FFFCF7;
+      color: var(--teal-dark);
+      font-family: var(--sans);
+      font-weight: 650;
+      font-size: 1.02rem;
+      line-height: 1.3;
+      padding: 0.95rem 1.1rem;
+      border-radius: 12px;
+      border: 2px solid #FFFCF7;
+      min-height: 3.4rem;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    }
+    .btn:hover {
+      color: var(--teal-dark);
+      background: #F0E7D8;
+      border-color: #F0E7D8;
+    }
+    .btn-alt {
+      background: transparent;
+      color: #FFFCF7;
+      border-color: rgba(255, 252, 247, 0.55);
+    }
+    .btn-alt:hover {
+      background: rgba(255, 252, 247, 0.12);
+      color: #FFFCF7;
+      border-color: #FFFCF7;
+    }
+    .fine {
+      margin: 1.05rem 0 0;
+      color: rgba(247, 244, 238, 0.88);
+      font-size: 0.9rem;
+    }
+    .fine a { color: #FFFCF7; }
+
+    .about {
+      margin-top: 3.2rem;
+      max-width: 40rem;
+    }
+    .about p { margin: 0; color: var(--muted); }
+    .about .name {
+      display: block;
+      margin-bottom: 0.15rem;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: rgba(255, 252, 247, 0.45);
+      padding: 1.15rem 0 1.4rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    footer p { margin: 0; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--teal); text-decoration: underline; }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(1080px, calc(100% - 1.75rem)); }
+      .hero { padding: 1.4rem 0 2.2rem; }
+      .grid, .actions { grid-template-columns: 1fr; }
+      .survey { padding: 1.55rem 1.2rem 1.4rem; }
+      footer .wrap { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="WanderGig home">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#0E5853"/>
+          <path d="M8 22c2-6 6-4 8-8s6-6 8-3" fill="none" stroke="#F3EEE4" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="11" r="2.3" fill="#E8A87C"/>
+        </svg>
+        <span>WanderGig</span>
+      </a>
+      <span class="badge">Early research</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap">
+      <p class="eyebrow">A marketplace in the making</p>
+      <h1>Short, paid tasks for businesses — done by travelers already in the city.</h1>
+      <p class="lede">WanderGig is a planned, mobile-first marketplace for location-specific micro-tasks: photos, local checks, quick research, and small hand-offs. It isn’t live yet.</p>
+    </section>
+
+    <svg class="route" viewBox="0 0 1080 24" fill="none" aria-hidden="true">
+      <path d="M0 14 C120 14, 160 6, 280 12 S440 22, 560 12 800 4, 1080 14" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 8" stroke-linecap="round"/>
+    </svg>
+
+    <section class="how wrap" aria-labelledby="how-heading">
+      <p class="section-kicker">The idea</p>
+      <h2 id="how-heading">How it would work</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="icon-label" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19V6.8A1.8 1.8 0 0 1 5.8 5H16l4 3.5V19"/>
+              <path d="M4 19h16"/>
+              <path d="M9 12h6M9 15h4"/>
+            </svg>
+          </div>
+          <h3>For businesses</h3>
+          <p>Need a photo from a particular street, a quick check of a shop or venue, a bit of local research, or a small hand-off? WanderGig is meant to be a lighter option than sending a staffer or hiring a field-research firm for a one-off job.</p>
+        </article>
+        <article class="card">
+          <div class="icon-label" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s6.5-5.2 6.5-11A6.5 6.5 0 0 0 12 3.5 6.5 6.5 0 0 0 5.5 10C5.5 15.8 12 21 12 21z"/>
+              <circle cx="12" cy="10" r="2.2"/>
+            </svg>
+          </div>
+          <h3>For travelers</h3>
+          <p>If you’re already in a city — backpacking, working remotely, or traveling for leisure — you could pick up a short paid task between plans. Not a full-time gig app, and not remote freelance work. Just something you can do, in about 20–30 minutes, while you’re already there.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="honest wrap" aria-labelledby="research-heading">
+      <h2 id="research-heading">We’re in early research</h2>
+      <p>There is no product to sign up for, and I’m not selling anything. These 3-minute surveys will shape what gets built — including whether it gets built at all. A clear “this wouldn’t be useful” is just as helpful as a yes.</p>
+    </section>
+
+    <section class="survey wrap" id="survey" aria-labelledby="survey-heading">
+      <h2 id="survey-heading">Take a 3-minute survey</h2>
+      <p>Choose the survey that fits you. Your answers stay with this research and help decide what WanderGig should be.</p>
+      <div class="actions">
+        <a class="btn" href="https://form.typeform.com/to/w7h74lT9">I’m a business: take the 3-minute survey</a>
+        <a class="btn btn-alt" href="https://form.typeform.com/to/r0El9gTO">I’m a traveler: take the survey</a>
+      </div>
+      <p class="fine">The surveys open on Typeform. See the <a href="privacy.html">privacy note</a> for how responses are used.</p>
+    </section>
+
+    <section class="about wrap" aria-labelledby="about-heading">
+      <h2 id="about-heading">Who’s behind this</h2>
+      <p>
+        <span class="name">Joubert Visser, Founder</span>
+        I’m based in Newland, North Carolina, USA. If you’d like to know who’s asking before you take the survey, email me at <a href="mailto:joubert@wandergig.co">joubert@wandergig.co</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>© 2026 WanderGig</p>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </footer>
+</body>
+</html>
